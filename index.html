@@ -1,46 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>StorySphere</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+:root{
+--bg:#070816;
+--card:#111425;
+--accent:#00e5ff;
+--accent2:#7b2fff;
+--text:#f4f7ff;
+--muted:#8f95b2;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:'Syne',sans-serif;
+overflow-x:hidden;
+}
+
+/* BG */
+
+.bg{
+position:fixed;
+inset:0;
+z-index:-1;
+}
+
+.grid{
+position:absolute;
+inset:0;
+background-image:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:50px 50px;
+}
+
+.orb{
+position:absolute;
+border-radius:50%;
+filter:blur(120px);
+}
+
+.orb1{
+width:420px;
+height:420px;
+background:#00e5ff20;
+top:-120px;
+left:-120px;
+}
+
+.orb2{
+width:420px;
+height:420px;
+background:#7b2fff20;
+right:-120px;
+bottom:-120px;
+}
+
+/* LOGIN */
+
+.login-screen{
+min-height:100svh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+}
+
+.login-card{
+width:100%;
+max-width:420px;
+padding:34px;
+border-radius:32px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
+backdrop-filter:blur(20px);
+text-align:center;
+}
+
+.logo{
+width:78px;
+height:78px;
+margin:auto;
+border-radius:24px;
+background:
+linear-gradient(
+135deg,
+var(--accent2),
+var(--accent)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:2rem;
+font-weight:800;
+margin-bottom:24px;
+}
+
+.login-card h1{
+font-size:2.2rem;
+line-height:1;
+margin-bottom:16px;
+}
+
+.login-card p{
+color:var(--muted);
+line-height:1.8;
+margin-bottom:28px;
+}
+
+.input{
+width:100%;
+padding:18px;
+border:none;
+border-radius:18px;
+background:rgba(255,255,255,0.05);
+color:white;
+margin-bottom:14px;
+font-size:1rem;
+}
+
+.btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:18px;
+font-size:1rem;
+font-weight:700;
+margin-top:10px;
+}
+
+.primary{
+background:
+linear-gradient(
+135deg,
+var(--accent2),
+var(--accent)
+);
+color:white;
+}
+
+.wallet{
+background:rgba(255,255,255,0.05);
+color:white;
+}
+
+.hidden{
+display:none;
+}
+
+/* APP */
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:20px;
+border-bottom:1px solid rgba(255,255,255,0.06);
+background:rgba(7,8,22,0.8);
+backdrop-filter:blur(18px);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.app-logo{
+font-weight:800;
+font-size:1.1rem;
+}
+
+.points{
+color:var(--accent);
+font-weight:700;
+}
+
+.container{
+padding:22px;
+padding-bottom:120px;
+}
+
+.card{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:28px;
+padding:24px;
+margin-bottom:18px;
+}
+
+.hero{
+padding:34px;
+background:
+linear-gradient(
+135deg,
+rgba(0,229,255,0.12),
+rgba(123,47,255,0.12)
+);
+
+}
+
+.hero h1{
+font-size:2.4rem;
+line-height:0.95;
+margin-bottom:16px;
+}
+
+.hero p{
+color:var(--muted);
+line-height:1.8;
+}
+
+.main-btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:20px;
+margin-top:20px;
+background:
+linear-gradient(
+135deg,
+var(--accent2),
+var(--accent)
+);
+
+color:white;
+font-weight:700;
+}
+
+.quest{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px;
+border-radius:18px;
+background:rgba(255,255,255,0.03);
+margin-top:14px;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:82px;
+background:rgba(7,8,22,0.82);
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid rgba(255,255,255,0.06);
+backdrop-filter:blur(18px);
+}
+
+.nav-item{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+font-size:0.72rem;
+color:var(--muted);
+}
+
+.active{
+color:var(--accent);
+}
+
+.logout{
+margin-top:20px;
+background:#ff2d6b;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg">
+
+<div class="grid"></div>
+
+<div class="orb orb1"></div>
+
+<div class="orb orb2"></div>
+
+</div>
+
+<!-- LOGIN -->
+
+<div
+class="login-screen"
+id="loginScreen"
+>
+
+<div class="login-card">
+
+<div class="logo">
+S
+</div>
+
+<h1>
+StorySphere
+</h1>
+
+<p>
+Your Story Protocol SuperApp
+for onchain identity,
+quests, swaps, and reputation.
+</p>
+
+<input
+class="input"
+placeholder="Enter Email"
+/>
+
+<button
+class="btn primary"
+onclick="enterApp()"
+>
+Continue with Email
+</button>
+
+<button
+class="btn wallet"
+onclick="enterApp()"
+>
+Connect Wallet
+</button>
+
+</div>
+
+</div>
+
+<!-- APP -->
+
+<div
+id="app"
+class="hidden"
+>
+
+<div class="topbar">
+
+<div class="app-logo">
+StorySphere
+</div>
+
+<div
+class="points"
+id="xp"
+>
+12,840 XP
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card hero">
+
+<h1>
+Build Your<br>
+Onchain Identity
+</h1>
+
+<p>
+GM streaks, ecosystem quests,
+swaps, badges and Story reputation.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+☀️ Daily GM
+</h3>
+
+<p id="streakText">
+Day 8 / 10 completed
+</p>
+
+<button
+class="main-btn"
+id="gmBtn"
+>
+Claim GM
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+🤝 Ecosystem Quests
+</h3>
+
+<div class="quest">
+<span>Follow Partner X</span>
+<strong>+50 XP</strong>
+</div>
+
+<div class="quest">
+<span>Join Discord</span>
+<strong>+30 XP</strong>
+</div>
+
+<div class="quest">
+<span>Complete Swap</span>
+<strong>+120 XP</strong>
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>
+👤 Profile
+</h3>
+
+<div class="quest">
+<span>Total XP</span>
+<strong id="profileXP">
+12840
+</strong>
+</div>
+
+<div class="quest">
+<span>Tier</span>
+<strong>
+Diamond
+</strong>
+</div>
+
+<button
+class="btn logout"
+onclick="logout()"
+>
+Logout
+</button>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<div class="nav-item active">
+🏠
+<span>Home</span>
+</div>
+
+<div class="nav-item">
+🎯
+<span>Quests</span>
+</div>
+
+<div class="nav-item">
+🔄
+<span>Swap</span>
+</div>
+
+<div class="nav-item">
+👤
+<span>Profile</span>
+</div>
+
+</div>
+
+</div>
+
 <script>
 
-const gmBtn = document.querySelector(".gm-btn");
+/* LOGIN */
 
-const xp = document.getElementById("xp");
+const loginScreen =
+document.getElementById("loginScreen");
+
+const app =
+document.getElementById("app");
+
+if(localStorage.getItem("loggedIn")
+=== "true"){
+
+loginScreen.classList.add("hidden");
+
+app.classList.remove("hidden");
+
+}
+
+function enterApp(){
+
+localStorage.setItem(
+"loggedIn",
+true
+);
+
+loginScreen.classList.add("hidden");
+
+app.classList.remove("hidden");
+
+}
+
+function logout(){
+
+localStorage.removeItem(
+"loggedIn"
+);
+
+location.reload();
+
+}
+
+/* XP */
+
+const xp =
+document.getElementById("xp");
+
+const profileXP =
+document.getElementById("profileXP");
+
+const streakText =
+document.getElementById("streakText");
+
+const gmBtn =
+document.getElementById("gmBtn");
 
 let points =
 localStorage.getItem("points")
 ? Number(localStorage.getItem("points"))
 : 12840;
 
-let claimed =
-localStorage.getItem("claimed")
-=== "true";
+let streak =
+localStorage.getItem("streak")
+? Number(localStorage.getItem("streak"))
+: 8;
 
-xp.innerHTML = points + " XP";
+xp.innerHTML =
+points + " XP";
 
-if(claimed){
+profileXP.innerHTML =
+points;
 
-  gmBtn.innerHTML = "Already Claimed ☀️";
+streakText.innerHTML =
+"Day " + streak + " / 10 completed";
 
-  gmBtn.style.opacity = "0.7";
+/* DAILY GM */
+
+const today =
+new Date().toDateString();
+
+let claimedDate =
+localStorage.getItem("claimedDate");
+
+if(claimedDate === today){
+
+gmBtn.innerHTML =
+"GM Claimed ☀️";
+
+gmBtn.style.opacity =
+"0.7";
 
 }
 
 gmBtn.addEventListener("click", () => {
 
-  if(claimed) return;
+if(claimedDate === today)
+return;
 
-  claimed = true;
+claimedDate = today;
 
-  points += 80;
+streak += 1;
 
-  localStorage.setItem("points", points);
+points += 80;
 
-  localStorage.setItem("claimed", true);
+if(streak % 10 === 0){
 
-  xp.innerHTML = points + " XP";
+points += 500;
 
-  gmBtn.innerHTML = "Already Claimed ☀️";
+showToast(
+"🔥 10 Day Bonus +500 XP"
+);
 
-  gmBtn.style.opacity = "0.7";
+}
+
+localStorage.setItem(
+"points",
+points
+);
+
+localStorage.setItem(
+"streak",
+streak
+);
+
+localStorage.setItem(
+"claimedDate",
+claimedDate
+);
+
+xp.innerHTML =
+points + " XP";
+
+profileXP.innerHTML =
+points;
+
+streakText.innerHTML =
+"Day " + streak + " / 10 completed";
+
+gmBtn.innerHTML =
+"GM Claimed ☀️";
+
+gmBtn.style.opacity =
+"0.7";
+
+showToast(
+"☀️ GM Claimed +80 XP"
+);
 
 });
 
+/* QUESTS */
+
+const quests =
+document.querySelectorAll(".quest");
+
+quests.forEach((quest, index) => {
+
+quest.addEventListener("click", () => {
+
+let reward = 0;
+
+if(index === 0)
+reward = 50;
+
+if(index === 1)
+reward = 30;
+
+if(index === 2)
+reward = 120;
+
+if(reward > 0){
+
+points += reward;
+
+localStorage.setItem(
+"points",
+points
+);
+
+xp.innerHTML =
+points + " XP";
+
+profileXP.innerHTML =
+points;
+
+showToast(
+"🚀 +" +
+reward +
+" XP"
+);
+
+}
+
+});
+
+});
+
+/* TOAST */
+
+function showToast(text){
+
+const toast =
+document.createElement("div");
+
+toast.innerHTML =
+text;
+
+toast.style.position =
+"fixed";
+
+toast.style.bottom =
+"110px";
+
+toast.style.left =
+"50%";
+
+toast.style.transform =
+"translateX(-50%)";
+
+toast.style.padding =
+"16px 22px";
+
+toast.style.borderRadius =
+"18px";
+
+toast.style.background =
+"rgba(0,0,0,0.75)";
+
+toast.style.color =
+"white";
+
+toast.style.fontWeight =
+"700";
+
+toast.style.zIndex =
+"999";
+
+document.body.appendChild(toast);
+
+setTimeout(() => {
+
+toast.remove();
+
+}, 2500);
+
+}
+
 </script>
+
+</body>
+</html>
