@@ -1,214 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
+const gmBtn = document.querySelector(".gm-btn");
 
-  <title>StorySphere</title>
+const xp = document.getElementById("xp");
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+let points =
+localStorage.getItem("points")
+? Number(localStorage.getItem("points"))
+: 12840;
 
-  <link rel="stylesheet" href="style.css" />
-</head>
+let claimed =
+localStorage.getItem("claimed")
+=== "true";
 
-<body>
+xp.innerHTML = points + " XP";
 
-  <div class="bg">
-    <div class="grid"></div>
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-  </div>
+if(claimed){
 
-  <nav>
+  gmBtn.innerHTML = "Already Claimed ☀️";
 
-    <div class="logo">
-      <div class="logo-icon">S</div>
-      StorySphere
-    </div>
+  gmBtn.style.opacity = "0.7";
 
-    <div class="nav-btns">
-      <a href="#" class="btn btn-ghost">
-        Sign In
-      </a> <a href="app.html" class="btn btn-primary">
-  Launch App
-</a>
-    
-    </div>
+}
 
-  </nav>
+gmBtn.addEventListener("click", () => {
 
-  <section class="hero">
+  if(claimed) return;
 
-    <div class="hero-inner">
+  claimed = true;
 
-      <div class="badge">
-        STORY ECOSYSTEM — BETA LIVE
-      </div>
+  points += 80;
 
-      <h1>
-        Build Your<br>
-        <span class="gradient">
-          Onchain Story.
-        </span>
-      </h1>
+  localStorage.setItem("points", points);
 
-      <p>
-        Daily GM streaks, ecosystem quests,
-        swaps, rewards, and instant email wallets —
-        everything inside one powerful Story app.
-      </p>
+  localStorage.setItem("claimed", true);
 
-      <div class="hero-btns">
+  xp.innerHTML = points + " XP";
 
-        <a href="app.html" class="btn btn-primary">
-  Start Earning →
-</a>
-        <a href="#" class="btn btn-ghost">
-          Watch Demo
-        </a>
+  gmBtn.innerHTML = "Already Claimed ☀️";
 
-      </div>
+  gmBtn.style.opacity = "0.7";
 
-      <div class="phone-wrap">
+});
 
-        <div class="phone">
-
-          <div class="phone-top">
-            <span>9:41</span>
-            <span>● ● ●</span>
-          </div>
-
-          <div class="balance">
-            <span>Story Points</span>
-            <h2 id="points">
-              12840
-            </h2>
-          </div>
-
-          <div class="cards">
-
-            <div class="card">
-
-              <div class="card-left">
-
-                <div class="icon">
-                  ☀️
-                </div>
-
-                <div>
-                  <h4>
-                    GM Daily Streak
-                  </h4>
-
-                  <p>
-                    Day 8 / 10 completed
-                  </p>
-                </div>
-
-              </div>
-
-              <div class="value">
-                +80 XP
-              </div>
-
-            </div>
-
-            <div class="card">
-
-              <div class="card-left">
-
-                <div class="icon">
-                  🤝
-                </div>
-
-                <div>
-                  <h4>
-                    Ecosystem Quest
-                  </h4>
-
-                  <p>
-                    Partner mission active
-                  </p>
-                </div>
-
-              </div>
-
-              <div class="value">
-                +120
-              </div>
-
-            </div>
-
-            <div class="card">
-
-              <div class="card-left">
-
-                <div class="icon">
-                  🔄
-                </div>
-
-                <div>
-                  <h4>
-                    Instant Swap
-                  </h4>
-
-                  <p>
-                    USDC → STORY
-                  </p>
-                </div>
-
-              </div>
-
-              <div class="value">
-                Gasless
-              </div>
-
-            </div>
-
-            <div class="card">
-
-              <div class="card-left">
-
-                <div class="icon">
-                  📧
-                </div>
-
-                <div>
-                  <h4>
-                    Email Wallet
-                  </h4>
-
-                  <p>
-                    Connected securely
-                  </p>
-                </div>
-
-              </div>
-
-              <div class="value">
-                Active
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-<script src="app.js"></script>
-
-</body>
-</html>
+</script>
